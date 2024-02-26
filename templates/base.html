@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Pezorium</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="{% static 'img/favicon_fish_white.png' %}" rel="shortcut icon" type="image/png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+
+    <!-- Template Main CSS Files -->
+    <link href="{% static 'css/variables.css' %}" rel="stylesheet">
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+
+    <!-- =======================================================
+    * Template Name: ZenBlog
+    * Updated: Jan 29 2024 with Bootstrap v5.3.2
+    * Template URL: https://bootstrapmade.com/zenblog-bootstrap-blog-template/
+    * Author: BootstrapMade.com
+    * License: https:///bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+
+<body>
+    {% load static %}
+    <header id="header" class="header d-flex align-items-center fixed-top">
+        <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+            <a href="{% url 'index' %}" class="logo d-flex align-items-center">
+            <img src="{% static 'img/icon_fish.png' %}" alt="logo image"> 
+            <h1>Pezorium</h1>
+            </a>
+
+            <nav id="navbar" class="navbar">
+            <ul>
+            <li class="dropdown"><a href="{% url 'index' %}"><span>Blog</span><i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                <ul>
+                    <li><a href="{% url 'new_post' %}">Agregar post</a></li>
+                    <li><a href="#">Buscar en posts</a></li>
+                </ul>
+            </li>
+            <li class="dropdown"><a href="#"><span>Tienda</span><i class="bi bi-chevron-down dropdown-indicator"></i></a> <!--TODO: que lleve a Todos los productos app tienda-->
+                <ul>
+                    <li><a href="#">Agua dulce</a></li>
+                    <li><a href="#">Agua salada</a></li>
+                    <li><a href="#">Alimento</a></li>
+                    <li><a href="#">Accesorios</a></li>
+                    <li><a href="#">Acuarios</a></li>
+                </ul>
+            </li>
+
+            <li><a href="about.html">Nosotros</a></li>
+            <li><a href="contact.html">Contacto</a></li>
+            </ul>
+        </nav><!-- .navbar -->
+        <div class="position-relative">
+            <a href="#" class="mx-2"><span class="bi-facebook"></span></a>
+            <a href="#" class="mx-2"><span class="bi-twitter"></span></a>
+            <a href="#" class="mx-2"><span class="bi-instagram"></span></a>
+        </div>
+    </header>
+    <main id="main">{% load static %}
+        {% block page_title %}
+
+        {% endblock page_title %}
+
+        {% block page_content %}
+
+        {% endblock page_content %}
+    </main>
+    <footer class="footer d-flex justify-content-center align-items-center bg-black">
+        <div class="footer-legal d-flex align-items-center">
+            <div class="container d-flex align-items-center">
+                <div class="flex-column" class="justify-content-center">
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+                        <div class="copyright" style="font-size: 14px;">
+                            <p><strong>© Copyright Pezorium 2024.</strong> Todos los derechos reservados</p>
+                        </div>
+                        <div class="credits" style="font-size: 13px;">
+                            Diseñado por Julián Molinelli
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Vendor JS Files -->
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+    <script src="{% static 'vendor/aos/aos.js' %}"></script>
+    <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+
+    <!-- Template Main JS File -->
+    <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>

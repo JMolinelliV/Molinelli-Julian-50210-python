@@ -1,8 +1,17 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block page_title %}
-<h2 class="container-md">Nuevo post</h2>
+<h2 class="container-md">Publicar en blog</h2>
 {% endblock page_title %}
 
 {% block page_content %}
+<form method="post">{% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+
+    <input type="submit" value="Enviar">
+
+</form>
+
 {% endblock page_content %}

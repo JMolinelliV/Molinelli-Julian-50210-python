@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 
-{% block page_title %}
-<h2 class="container-md">Bienvenido al blog de Pezorium!</h2>
-{% endblock page_title %}
 
 {% block page_content %}{% load static %}
 
+{% if posts %}
+
+{% block page_title %}
+<h2 class="container-md pt-4">Bienvenido al blog de Pezorium!</h2>
+{% endblock page_title %}
 
 <!-- ======= Hero Slider Section ======= -->
 <section id="hero-slider" class="hero-slider">
@@ -71,6 +73,13 @@
   </div>
 </section>
 
+{% else %}
 
+<section id="posts" class="d-flex flex-column justify-content-center align-items-center min-vh-100">
+  <img src="{% static 'img/confused-fish.gif' %}" alt="Confused fish gif" style="height: 200px; width: 200px;">
+  <h2>¡No hay coincidencias para tu búsqueda!</h2>
+</section>
+
+{% endif %}
 
 {% endblock page_content %}

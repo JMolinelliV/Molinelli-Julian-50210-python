@@ -41,7 +41,7 @@ def blog_category(request, category):
     }
     return render(request, "blog/category.html", context)
 
-"""Muestra los comentarios de un BLogPost buscando por la PrimaryKey"""
+"""Muestra solo un post y los comentarios relacionados con la pk de ese post"""
 def blog_detail(request, pk):
     
     post = BlogPost.objects.get(pk=pk)
@@ -70,18 +70,30 @@ def blog_detail(request, pk):
 
 def new_post(request):
     if request.method == "POST":
-        form = newPostForm(request.POST)
+        form = newPostForm(request.POST, request.FILES)
         if form.is_valid():
-            instance = form.save()
-            instance.post_author = request.user
-            instance.save()
-            return redirect("index")
+            
+            info = form.cleaned_data
+
+            new_post_info = BlogPost(
+                title=info["título"],
+                content=info["contenido"],
+                image=info["imagen"],
+                post_author=info["autor"],
+                )
+
+            new_post_info.save()  
+            new_post_info.categories.set(info["categorias"])
+
+            return redirect(request.path_info)
         
     else:
         form = newPostForm()
     
-    context = {
-        "form":newPostForm()
-    }
+    return render(request, "blog/new_post.html", {"form":form})
 
-    return render(request, "blog/new_post.html", context)
+def about(request):
+    return render(request, "blog/about.html")
+
+def contact(request):
+    return render(request, "blog/contact.html")

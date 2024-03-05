@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 
-
 {% block page_content %}{% load static %}
 
 {% if posts %}
@@ -11,7 +10,7 @@
 
 <!-- ======= Hero Slider Section ======= -->
 <section id="hero-slider" class="hero-slider">
-  <div class="container-md data-aos="fade-in"" > <!-- data-aos="fade-in" -->
+  <div class="container-md"> <!-- data-aos="fade-in" -->
     <div class="row">
       <div class="col-12">
         <div class="swiper sliderFeaturedPosts">
@@ -43,7 +42,7 @@
 
 <!--Listado de todos los BlogPosts-->
 <section id="posts" class="posts">
-  <div class="container data-aos="fade-up"" > <!-- data-aos="fade-up"-->
+  <div class="container" > <!-- data-aos="fade-up"-->
     <div class="row g-5">
       {% for post in posts %}
       <div class="col-lg-4">
@@ -61,7 +60,7 @@
           <h2><a href="{% url 'blog_detail' post.pk %}" class="text-break">{{ post.title | slice:":150" }}</a></h2>
           <p class="mb-4 d-block">{{ post.content | slice:":400" }}...</p>
           <div class="d-flex align-items-center author">
-            <div class="photo"><img src="{% static 'img/person-1.jpg' %}" alt="" class="img-fluid"></div> <!---TODO: cambiar para mistrar la foto del usuario-->
+            <div class="photo"><img src="{% static 'img/person-1.jpg' %}" alt="" class="img-fluid"></div> <!---TODO: cambiar para mostrar la foto del usuario-->
             <div class="name">
               <h3 class="m-0 p-0">{{ post.post_author }}</h3>
             </div>

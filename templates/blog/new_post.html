@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block page_content %}
+<br>
 {% block page_title %}
 <h2 class="container-md">Publicar en blog</h2>
 {% endblock page_title %}
 
-{% block page_content %}
-<form method="post">{% csrf_token %}
-    <table>
-        {{ form.as_table }}
-    </table>
+<div class="container-md">
+{% csrf_token %} 
+{% load crispy_forms_tags %}
 
-    <input type="submit" value="Enviar">
+{% crispy form %}
 
-</form>
-
-{% endblock page_content %}
+</div>
+{% endblock page_content %} 

@@ -1,7 +1,5 @@
 from django import forms
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
-from blog.models import Category
+from blog.models import BlogPost
 
 class CommentForm(forms.Form):
     comment_author = forms.CharField(
@@ -24,28 +22,14 @@ class CommentForm(forms.Form):
         )
     )
 
-class newPostForm(forms.Form):
-
+#ModelForm creado para darle formatos a BlogPostCreateView y BlogPostUpdateView
+class BlogPostForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper(self)
-        self.helper.form_method = 'POST'
-        self.helper.add_input(Submit('enviar', 'Enviar'))
+        super(BlogPostForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
 
-    CATEGORIES = (
-        (1, "Agua dulce"),
-        (2, "Agua marina"),
-        (3, "Primer acuario"),
-        (4, "Alimentación")
-    )
+    class Meta:
+        model = BlogPost
+        fields = ['title', 'content', 'post_author', 'image', 'categories']
 
-    título = forms.CharField(max_length=250)
-    contenido = forms.CharField(
-        widget=forms.Textarea()
-    )
-    imagen = forms.ImageField()
-    autor = forms.CharField()
-    categorias = forms.ModelMultipleChoiceField(
-        queryset=Category.objects.all(),
-        widget=forms.CheckboxSelectMultiple
-    )

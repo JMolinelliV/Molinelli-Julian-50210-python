@@ -3,13 +3,13 @@ from django.db import models
 
 # Create your models here.
 class BlogPost(models.Model):
-    title = models.CharField(max_length=250)
-    content = models.TextField()
-    post_author = models.CharField(max_length=30)
+    title = models.CharField(max_length=250, verbose_name = "título")
+    content = models.TextField(verbose_name = "contenido")
+    post_author = models.CharField(max_length=30, verbose_name = "autor")
     creation_date = models.DateTimeField(auto_now_add=True)
     modification_date = models.DateTimeField(auto_now=True)
-    image = models.ImageField(upload_to='blog/files/blog_images')
-    categories = models.ManyToManyField('Category', related_name='posts') #Relaciona el atributo con la clase Category y permite usar category.posts
+    image = models.ImageField(upload_to='blog/files/blog_images', verbose_name = "imagen")
+    categories = models.ManyToManyField('Category', related_name='posts', verbose_name = "categorias") #Relaciona el atributo con la clase Category y permite usar category.posts
 
     def __str__(self):
         return self.title
@@ -41,3 +41,7 @@ class Comment(models.Model):
     class Meta:
         verbose_name = "comment"
         verbose_name_plural = "comments"
+
+class Contact(models.Model):
+    name = models.CharField(max_length=250)
+    email = models.EmailField()

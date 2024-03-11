@@ -2,9 +2,52 @@
 {% load static %}
 {% block page_content %}
 
-<section id="posts" class="d-flex flex-column justify-content-center align-items-center min-vh-100">
-    <img src="{% static 'img/confused-fish.gif' %}" alt="Confused fish gif" style="height: 200px; width: 200px;">
-    <h2>¡Atlantis no se construyó en un día!</h2>
-</section>
+<section id="posts" class="container-md d-flex flex-column  align-items-center justify-content-center min-vh-100">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 text-center mb-5">
+            <h1 class="page-title">Sobre nosotros</h1>
+        </div>
+    </div>
 
+    <div class="row mb-5">
+
+        <div class="d-md-flex post-entry-2 half justify-content-center">
+            <a href="#" class="me-4 thumbnail">
+                <img src="{% static 'img/about_1.jpg' %}" alt="" class="img-fluid">
+            </a>
+            <div class="ps-md-5 mt-4 mt-md-0">
+                <h2 class="mb-4 display-4">Nuestros inicios</h2>
+                <p>
+                    En el fresco año 2024, Pezorium surgió como un proyecto de CoderHouse, fusionando tecnología con la fascinación por la acuariofilia. 
+                    En tan solo dos días de vida, este espacio digital ha evolucionado para convertirse en un refugio donde los amantes de los acuarios comparten 
+                    conocimientos y exploran productos de calidad. Desde sus inicios, Pezorium se ha propuesto ser una plataforma vibrante que conecta a la comunidad 
+                    acuática. Acompáñanos desde los primeros momentos en este emocionante viaje acuático en Pezorium, donde la pasión por los acuarios encuentra su hogar 
+                    digital. ¡Bienvenidos a nuestra historia acuática en constante evolución!
+                </p>
+            </div>
+        </div>
+
+        <div class="d-md-flex post-entry-2 half mt-5">
+        <a href="#" class="me-4 thumbnail order-2">
+            <img src="{% static 'img/about_3.avif' %}" alt="" class="img-fluid">
+        </a>
+        <div class="pe-md-5 mt-4 mt-md-0">
+            <h2 class="mb-4 display-4">Misión &amp; Visión</h2>
+            <p>
+                En Pezorium, nos esforzamos por fomentar una comunidad acuática vibrante y conectada. 
+                Nos comprometemos a proporcionar un espacio donde los aficionados a la acuariofilia puedan compartir experiencias, conocimientos y encontrar 
+                productos de calidad que potencien su pasión por el mundo acuático.
+                <br><br>
+                Aspiramos a ser el epicentro digital de la acuariofilia, donde los entusiastas encuentren inspiración, soluciones y productos innovadores para 
+                construir y mantener sus propios ecosistemas acuáticos. En Pezorium, visualizamos un futuro donde cada amante de los acuarios se sienta empoderado y 
+                respaldado, contribuyendo a un mundo más consciente y apasionado por la vida bajo el agua.
+            </p>
+        </div>
+        </div>
+
+    </div>
+
+    </div>
+</section>
 {% endblock page_content %}

@@ -9,7 +9,7 @@
 
 <form method="POST" class="d-flex flex-column">{% csrf_token %} 
 {% block page_title %}
-    <h2 class="container-md">¿Está seguro que desea borrar el post?</h2>
+    <h2 class="container-md text-center">¿Está seguro que desea borrar el post "{{object}}"?</h2>
 {% endblock page_title %}
     <div class="d-flex justify-content-center align-items-center">
         <input type="submit" value="Elimnar" class="d-flex flex-row">
@@ -17,6 +17,7 @@
     </div>
         
 </form>
+
 
 </div>
 {% endblock page_content %}

@@ -5,7 +5,7 @@
 {% if posts %}
 
 {% block page_title %}
-<h1 class="container-md pt-4 text-center"> ---- ---- ---- ---- ---- ¡Bienvenido al blog de Pezorium! ---- ---- ---- ---- ---- </h1>
+{{mensaje}}
 {% endblock page_title %}
 
 <!-- ======= Hero Slider Section ======= -->
@@ -66,10 +66,12 @@
                 <h3 class="m-0 p-0">{{ post.post_author }}</h3>
               </div>
             </div>
+            {% if user.is_authenticated and request.user == post.post_author %}
             <div class="position-relative start-5">
               <a href="{% url 'edit_post' post.pk %}" class="btn btn-sm btn-primary">Editar</a>
               <a href="{% url 'delete_post' post.pk %}" class="btn btn-sm btn-danger">Borrar</a>
             </div>
+            {% endif %}
           </div>
         </div>
       </div>

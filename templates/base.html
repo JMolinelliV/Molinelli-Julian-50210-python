@@ -64,17 +64,23 @@
 
             <li><a href="{% url 'about' %}">Nosotros</a></li>
             <li><a href="{% url 'contact' %}">Contacto</a></li>
-            </ul>
+            
+            <li class="dropdown"><a href="#"><span>Sesión</span><i class="bi bi-chevron-down dropdown-indicator"></i></a> <!--TODO: que lleve a Todos los productos app tienda-->
+                <ul>
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}" class="btn">Cerrar sesión</a></li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}" class="btn">Iniciar sesión</a></li>
+                    <li><a href="{% url 'signup' %}" class="btn">Registrarse</a></li>
+                    {% endif %}
+                </ul>
+            </li>
+        </ul>
         </nav>
         <form class="form-inline my-2 my-leg-0 d-flex">
-            <input class="form-control mr-sm-2" type="search" placeholder="Buscar en el blog" name="q">
+            <input class="form-control mr-sm-2" type="search" placeholder="Buscar en el blog" name="search">
             <button class="btn btn-primary" type="submit">Buscar</button>
         </form>
-        <div class="position-relative">
-            <a href="#" class="mx-2"><span class="bi-facebook"></span></a>
-            <a href="#" class="mx-2"><span class="bi-twitter"></span></a>
-            <a href="#" class="mx-2"><span class="bi-instagram"></span></a>
-        </div>
     </header>
     <main id="main">{% load static %}
         {% block page_content %}

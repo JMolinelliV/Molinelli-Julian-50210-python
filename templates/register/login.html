@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+
+<div class="d-flex container-md min-vh-100 flex-column align-items-center justify-content-center">
+    <h2>Inicio de sesión</h2>
+    <form method="POST">{% csrf_token %}
+        <div class="form_group">
+            {{ form }}
+        </div>
+        <div class="d-flex justify-content-center align-items-center">
+            <input type="submit" value="Iniciar sesión" class="d-flex flex-row">
+        </div>
+    </form>
+    <br><br>
+</div>
+{% endblock page_content %}

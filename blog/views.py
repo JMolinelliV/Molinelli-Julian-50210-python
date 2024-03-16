@@ -5,19 +5,19 @@ from blog.forms import BlogPostForm, CommentForm
 from django.db.models import Q
 from django.contrib.auth import  login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 #Imorts para CBV
-from django.views.generic import ListView, DetailView, DeleteView, UpdateView, CreateView, TemplateView, FormView
-from django.urls import reverse_lazy
+from django.views.generic import ListView, DeleteView, UpdateView, CreateView, TemplateView
+from django.urls import reverse, reverse_lazy
 
 # FBV
 
 """Muestra todos los posteos en index y permite filtrar con la barra de búsqueda dentro de todos los posts"""
 def index(request):
-    if 'q' in request.GET:
-        q = request.GET['q']
-        searches = Q(Q(title__icontains=q) | Q(content__icontains=q))
+    if 'search' in request.GET:
+        search = request.GET['search']
+        searches = Q(Q(title__icontains=search) | Q(content__icontains=search))
         posts = BlogPost.objects.filter(searches)
     else:
         posts = BlogPost.objects.all().order_by('-creation_date')
@@ -31,9 +31,9 @@ def index(request):
 
 """Muestra los posteos por categorias y permite filtrar con la barra de busqueda solo dentro de la categoría"""
 def blog_category(request, category):
-    if 'q' in request.GET:
-        q = request.GET['q']
-        searches = Q(Q(title__icontains=q) | Q(content__icontains=q))
+    if 'search' in request.GET:
+        search = request.GET['search']
+        searches = Q(Q(title__icontains=search) | Q(content__icontains=search))
         posts = BlogPost.objects.filter(
         categories__cat_name__contains=category
     ).order_by("-creation_date").filter(searches)
@@ -84,7 +84,7 @@ class BlogPostListView(ListView):
     context_object_name = "posts"
     template_name = 'blog/index.html'
 
-class BlogPostCreateView(CreateView):
+class BlogPostCreateView(LoginRequiredMixin, CreateView):
     model = BlogPost
     form_class = BlogPostForm
     template_name = 'blog/new_post.html'
@@ -94,13 +94,13 @@ class BlogPostCreateView(CreateView):
     def form_valid(self, form):
         return super().form_valid(form)
 
-class BlogPostUpdateView(UpdateView): #TODO: no funciona
+class BlogPostUpdateView(LoginRequiredMixin, UpdateView):
     model = BlogPost
     template_name = 'blog/edit_post.html'
     success_url = reverse_lazy('index')
     form_class = BlogPostForm
 
-class BlogPostDeleteView(DeleteView):
+class BlogPostDeleteView(LoginRequiredMixin, DeleteView):
     model = BlogPost
     template_name = 'blog/delete_post.html'
     success_url = reverse_lazy('index')
@@ -112,34 +112,47 @@ class ContactView(TemplateView):
     template_name = 'blog/contact.html'
     success_url = reverse_lazy('success_contact')
 
-#Log
-
-def login_request(request):
-
+#Login
+def iniciar_sesion(request):
     if request.method == "POST":
         form = AuthenticationForm(request, data = request.POST)
 
         if form.is_valid():
-            user = form.cleaned_data.get('username')
-            password = form.changed_data.get('password')
-
-            user = authenticate(username=user, password=password)
+            info_dic = form.cleaned_data
+            user = authenticate(
+                username = info_dic["username"],
+                password = info_dic["password"]
+                )
 
             if user is not None:
                 login(request, user)
-
-                return render(request, 'blog/index.html', {"mensaje":f"Bienvenido {user}"})
-            else:
-                return render(request, 'blog/index.html', {"mensaje":"Datos incorrectos!"})
+                return HttpResponseRedirect(reverse("index"))
             
         else:
-            return render(request, 'blog/index.html', {"mensaje":"Usuario o contraseña incorrectos!"})
-        
-    form = AuthenticationForm()
+            return render(request, "blog/index.html", {"mensaje":"Los datos no son válidos."})
+    
+    else:
+        form = AuthenticationForm()
 
-    return render(request, 'blog/login.html', {'form':form})
+    return render(request, "register/login.html", {"form":form})
 
-class SignUpView(CreateView):
-    form_class = UserCreationForm
-    success_url = reverse_lazy("login")
-    template_name = 'blog/register.html'
+
+#Register
+def signup(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+
+        if form.is_valid():
+            form.save()            
+            return render(request, 'blog/index.html', {"mensaje":"Usuario creado con éxito!"})
+
+    else:
+        form = UserCreationForm()
+
+    return render(request, 'register/signup.html', {"form":form})
+
+#Logout
+
+def cerrar_sesion(request):
+    logout(request)
+    return HttpResponseRedirect(reverse("index"))

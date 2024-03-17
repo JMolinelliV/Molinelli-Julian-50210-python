@@ -64,10 +64,12 @@
 
             <li><a href="{% url 'about' %}">Nosotros</a></li>
             <li><a href="{% url 'contact' %}">Contacto</a></li>
-            
-            <li class="dropdown"><a href="#"><span>Sesión</span><i class="bi bi-chevron-down dropdown-indicator"></i></a> <!--TODO: que lleve a Todos los productos app tienda-->
+            <li class="dropdown"><a href="#">{% if user.is_authenticated %} <img src="{{user.avatar_set.last.image.url}}" alt="avatar" class="avatar avatar-sm rounded-circle" style="width: 33px; height: 33px;">&nbsp;&nbsp;<span>{{user.username}}</span>{% else %}<span>Usuario</span>{% endif %}<i class="bi bi-chevron-down dropdown-indicator"></i></a>
                 <ul>
                     {% if user.is_authenticated %}
+                    <li><a href="{% url 'edit_user' user.username %}" class="btn">Editar perfil</a></li>
+                    <li><a href="{% url 'new_avatar' user.username %}" class="btn">Editar avatar</a></li>
+                    <li><a href="{% url 'change_password' user.username %}" class="btn">Modificar contraseña</a></li>
                     <li><a href="{% url 'logout' %}" class="btn">Cerrar sesión</a></li>
                     {% else %}
                     <li><a href="{% url 'login' %}" class="btn">Iniciar sesión</a></li>

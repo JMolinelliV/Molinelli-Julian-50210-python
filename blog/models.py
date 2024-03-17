@@ -1,11 +1,13 @@
 from django.db import models
+from django.contrib.auth.models import User
 #from ckeditor.fields import RichTextField
 
 # Create your models here.
+
 class BlogPost(models.Model):
     title = models.CharField(max_length=250, verbose_name = "título")
     content = models.TextField(verbose_name = "contenido")
-    post_author = models.CharField(max_length=30, verbose_name = "autor")
+    post_author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts', verbose_name="autor")
     creation_date = models.DateTimeField(auto_now_add=True)
     modification_date = models.DateTimeField(auto_now=True)
     image = models.ImageField(upload_to='blog/files/blog_images', verbose_name = "imagen")
@@ -45,3 +47,7 @@ class Comment(models.Model):
 class Contact(models.Model):
     name = models.CharField(max_length=250)
     email = models.EmailField()
+
+class Avatar(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to="blog/files/avatar", null=True, blank=True)

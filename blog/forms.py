@@ -1,26 +1,18 @@
 from django import forms
-from blog.models import BlogPost
+from blog.models import BlogPost, Comment
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.models import User
 
-class CommentForm(forms.Form):
-    comment_author = forms.CharField(
-        max_length=60,
-        widget=forms.TextInput(
-            attrs={"class":"form-control", "placeholder":"Ingresa tu nombre:"}
-        ),
-    )
 
-    email = forms.EmailField(
-        max_length=60,
-        widget=forms.TextInput(
-            attrs={"class":"form-control", "placeholder": "Email"}
-        ),
-    )
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
 
-    content = forms.CharField(
-        widget=forms.Textarea(
-            attrs={"class":"form-control", "placeholder":"Deja un comentario..."}
-        )
-    )
+    def __init__(self, *args, **kwargs):
+        super(CommentForm, self).__init__(*args, **kwargs)
+        self.fields['content'].widget.attrs['class'] = 'form-control'
+        self.fields['content'].widget.attrs['placeholder'] = 'Escribe tu comentario...'
 
 #ModelForm creado para darle formatos a BlogPostCreateView y BlogPostUpdateView
 class BlogPostForm(forms.ModelForm):
@@ -31,5 +23,21 @@ class BlogPostForm(forms.ModelForm):
 
     class Meta:
         model = BlogPost
-        fields = ['title', 'content', 'post_author', 'image', 'categories']
+        fields = ['title', 'content', 'image', 'categories']
 
+class UserRegister(UserCreationForm):
+
+    class Meta:
+        model = User
+        fields = ["username", "email", "first_name", "last_name", "password1", "password2"]
+
+class EditUser(UserChangeForm):
+
+    password = None
+
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name", "email"]
+
+class AvatarForm(forms.Form):
+    image = forms.ImageField()

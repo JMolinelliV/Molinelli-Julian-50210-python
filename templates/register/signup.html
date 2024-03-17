@@ -4,7 +4,7 @@
 
 <div class="d-flex container-md min-vh-100 flex-column align-items-center justify-content-center">
     <h2>Registro de usuarios</h2>
-    <form method="POST">{% csrf_token %}
+    <form method="POST" enctype="multipart/form-data">{% csrf_token %}
         <div class="form_group">
             {{ form }}
         </div>

@@ -5,7 +5,13 @@
 {% if posts %}
 
 {% block page_title %}
-{{mensaje}}
+{% if user.is_authenticated %}
+<br>
+<h2 class="container-md text-center text-wrap"> ¡Bienvenido a casa, {{user}}!</h2>
+{% else %}
+<br>
+<h2 class="text-center"> ¡Bienvenido al blog de Pezorium! </h2>
+{% endif %}
 {% endblock page_title %}
 
 <!-- ======= Hero Slider Section ======= -->
@@ -61,7 +67,7 @@
           <p class="mb-4 d-block">{{ post.content | slice:":400" }}...</p>
           <div class="d-flex align-items-center justify-content-between mr-4">
             <div class="d-flex align-items-center author">
-              <div class="photo"><img src="{% static 'img/person-1.jpg' %}" alt="" class="img-fluid"></div> <!---TODO: cambiar para mostrar la foto del usuario-->
+              <div class="photo"><img src="{{post.post_author.avatar_set.last.image.url}}" alt="avatar" class="img-fluid"></div> <!---TODO: cambiar para mostrar la foto del usuario-->
               <div class="name">
                 <h3 class="m-0 p-0">{{ post.post_author }}</h3>
               </div>

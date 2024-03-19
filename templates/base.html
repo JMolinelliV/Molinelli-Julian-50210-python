@@ -52,24 +52,26 @@
                     <li><a href="{% url 'new_post' %}">Agregar post</a></li>
                 </ul>
             </li>
-            <li class="dropdown"><a href="#"><span>Tienda</span><i class="bi bi-chevron-down dropdown-indicator"></i></a> <!--TODO: que lleve a Todos los productos app tienda-->
-                <ul>
-                    <li><a href="#">Agua dulce</a></li>
-                    <li><a href="#">Agua salada</a></li>
-                    <li><a href="#">Alimento</a></li>
-                    <li><a href="#">Accesorios</a></li>
-                    <li><a href="#">Acuarios</a></li>
-                </ul>
-            </li>
 
             <li><a href="{% url 'about' %}">Nosotros</a></li>
             <li><a href="{% url 'contact' %}">Contacto</a></li>
-            <li class="dropdown"><a href="#">{% if user.is_authenticated %} <img src="{{user.avatar_set.last.image.url}}" alt="avatar" class="avatar avatar-sm rounded-circle" style="width: 33px; height: 33px;">&nbsp;&nbsp;<span>{{user.username}}</span>{% else %}<span>Usuario</span>{% endif %}<i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <li class="dropdown">
+                <a href="#">
+                    {% if user.is_authenticated %}
+                        {% if user.avatar_set.exists %}
+                            <img src="{{ user.avatar_set.last.image.url }}" alt="avatar" class="avatar avatar-sm rounded-circle" style="width: 33px; height: 33px;">
+                        {% else %}
+                            <img src="{% static 'img/generic_avatar.avif' %}" alt="Avatar genérico" class="avatar avatar-sm rounded-circle" style="width: 33px; height: 33px;">
+                        {% endif %}
+                        &nbsp;&nbsp;<span>{{ user.username }}</span>
+                    {% else %}
+                        <span>Usuario</span>
+                    {% endif %}
+                    <i class="bi bi-chevron-down dropdown-indicator"></i>
+                </a>
                 <ul>
                     {% if user.is_authenticated %}
-                    <li><a href="{% url 'edit_user' user.username %}" class="btn">Editar perfil</a></li>
-                    <li><a href="{% url 'new_avatar' user.username %}" class="btn">Editar avatar</a></li>
-                    <li><a href="{% url 'change_password' user.username %}" class="btn">Modificar contraseña</a></li>
+                    <li><a href="{% url 'user_profile' user.username %}" class="btn">Ver perfil</a></li>
                     <li><a href="{% url 'logout' %}" class="btn">Cerrar sesión</a></li>
                     {% else %}
                     <li><a href="{% url 'login' %}" class="btn">Iniciar sesión</a></li>

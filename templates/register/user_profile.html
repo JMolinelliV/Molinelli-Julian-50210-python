@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+{% load static %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <br><br>
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Perfil de usuario</h2>
+                    <div class="text-center mb-4">
+                        {% if avatar %}
+                            <img src="{{ user.avatar_set.last.image.url }}" alt="Avatar" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
+                        {% else %}
+                            <img src="{% static 'img/generic_avatar.avif' %}" alt="Avatar genérico" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
+                        {% endif %}
+                    </div>
+                    <p><strong>Nombre de usuario:</strong> {{ user.username }}</p>
+                    <p><strong>Correo electrónico:</strong> {{ user.email }}</p>
+                    <p><strong>Nombre:</strong> {{ user.first_name }}</p>
+                    <p><strong>Apellido:</strong> {{ user.last_name }}</p>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <p><a href="{% url 'edit_user' user.username %}" class="btn">Editar perfil</a></p>
+                        <p><a href="{% url 'new_avatar' user.username %}" class="btn ">Editar avatar</a></p>
+                        <p><a href="{% url 'change_password' user.username %}" class="btn ">Cambiar contraseña</a></p>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+        </div>
+    </div>
+</div>
+
+{% endblock page_content %}

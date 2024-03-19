@@ -105,6 +105,15 @@ section {
   color: var(--color-black);
 }
 
+.form-card {
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+.form-control {
+  width: 100%;
+}
+
 /* Form Input Fieldds */
 .form-control:active,
 .form-control:focus {

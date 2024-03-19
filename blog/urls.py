@@ -21,4 +21,5 @@ urlpatterns = [
     path('comment/<int:pk>/edit/', views.CommentUpdateView.as_view(), name='edit_comment'),
     path('comment/<int:pk>/delete/', views.CommentDeleteView.as_view(), name='delete_comment'),
     path("change_password/<str:username>/", views.ChangePassword.as_view(), name="change_password"),
+    path('profile/<str:username>/', views.user_profile, name='user_profile'),
 ]

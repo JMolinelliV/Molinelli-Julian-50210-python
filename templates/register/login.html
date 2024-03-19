@@ -2,17 +2,62 @@
 
 {% block page_content %}
 
-<div class="d-flex container-md min-vh-100 flex-column align-items-center justify-content-center">
-    <h2>Inicio de sesión</h2>
-    <form method="POST">{% csrf_token %}
-        <div class="form_group">
-            {{ form }}
+<style>
+    .form-card {
+        max-width: 400px;
+        margin: 20px auto;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    .btn-container {
+        text-align: center;
+    }
+
+    /* Alineación de labels */
+    .form-label {
+        margin-bottom: 5px;
+        text-align: left;
+    }
+</style>
+
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title text-center mb-4">Inicio de sesión</h2>
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="id_username" class="form-label">Nombre de usuario:</label>
+                                {{ form.username }}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_password" class="form-label">Contraseña:</label>
+                                {{ form.password }}
+                            </div>
+                            <div class="btn-container">
+                                <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                            </div>
+                        </form>
+                        <div class="d-flex justify-content-center align-items-center mt-3">
+                            <a href="{% url 'signup' %}">Crear cuenta</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="d-flex justify-content-center align-items-center">
-            <input type="submit" value="Iniciar sesión" class="d-flex flex-row">
-            <a href="{% url 'signup' %}">Crear cuenta</a>
-        </div>
-    </form>
-    <br><br>
+    </div>
 </div>
+
 {% endblock page_content %}

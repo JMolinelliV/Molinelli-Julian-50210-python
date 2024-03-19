@@ -2,16 +2,31 @@
 
 {% block page_content %}
 
-<div class="d-flex container-md min-vh-100 flex-column align-items-center justify-content-center">
-    <h2>Cambiar avatar</h2>
-    <form method="POST" enctype="multipart/form-data">{% csrf_token %}
-        <div class="form_group">
-            {{ form }}
+<div class="container">
+    <div class="row justify-content-center min-vh-100">
+        <div class="col-md-6 align-items-center mt-5">
+            <div class="card-container mt-5">
+                <div class="card">
+                    <div class="card-header ">
+                        <h2 class="card-title">Cambiar avatar</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group d-flex justify-content-center">
+                                <label for="id_image">Imagen:</label>
+                                {{ form.image }}
+                            </div>
+                            <div class="text-center mt-3">
+                                <button type="submit" class="btn btn-primary">Modificar</button>
+                                <a href="{% url 'index' %}" class="btn">Cancelar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="d-flex justify-content-center align-items-center">
-            <input type="submit" value="Modificar" class="d-flex flex-row">
-        </div>
-    </form>
-    <br><br>
+    </div>
 </div>
+
 {% endblock page_content %}

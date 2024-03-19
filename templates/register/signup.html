@@ -2,16 +2,84 @@
 
 {% block page_content %}
 
-<div class="d-flex container-md min-vh-100 flex-column align-items-center justify-content-center">
-    <h2>Registro de usuarios</h2>
-    <form method="POST" enctype="multipart/form-data">{% csrf_token %}
-        <div class="form_group">
-            {{ form }}
+<style>
+    .form-card {
+        max-width: 400px;
+        margin: 20px auto;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    .btn-container {
+        text-align: center;
+    }
+
+    /* Alineación de labels */
+    .form-label {
+        margin-bottom: 5px;
+        text-align: left;
+    }
+
+    /* Ayudas de campo */
+    .form-help {
+        font-size: 12px;
+        color: #6c757d;
+        margin-top: 5px;
+    }
+</style>
+
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title text-center mb-4">Registro de usuarios</h2>
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="id_username" class="form-label">Nombre de usuario:</label>
+                                {{ form.username }}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_email" class="form-label">Correo electrónico:</label>
+                                {{ form.email }}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_first_name" class="form-label">Nombre:</label>
+                                {{ form.first_name }}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_last_name" class="form-label">Apellido:</label>
+                                {{ form.last_name }}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_password1" class="form-label">Contraseña:</label>
+                                {{ form.password1 }}
+                                <small class="form-help">{{ form.password1.help_text }}</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_password2" class="form-label">Confirmar contraseña:</label>
+                                {{ form.password2 }}
+                                <small class="form-help">{{ form.password2.help_text }}</small>
+                            </div>
+                            <div class="btn-container">
+                                <button type="submit" class="btn btn-primary">Registrarse</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="d-flex justify-content-center align-items-center">
-            <input type="submit" value="Registrarse" class="d-flex flex-row">
-        </div>
-    </form>
-    <br><br>
+    </div>
 </div>
+
 {% endblock page_content %}

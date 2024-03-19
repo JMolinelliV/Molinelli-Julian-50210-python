@@ -36,14 +36,18 @@
                             <div class="comment d-flex mb-4">
                                 <div class="flex-shrink-0">
                                     <div class="avatar avatar-sm rounded-circle">
-                                        <img class="avatar-img" src="{% static 'img/person-5.jpg' %}" alt="" class="img-fluid">
+                                        {% if avatar %}
+                                        <img class="avatar-img" src="{{comment.comment_author.user.avatar_set.last.image.url}}" alt="" class="img-fluid">
+                                        {% else %}
+                                        <img src="{% static 'img/generic_avatar.avif' %}" alt="Avatar genérico" class="avatar avatar-sm rounded-circle" style="width: 33px; height: 33px;">
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="flex-grow-1 ms-2 ms-sm-3">
                                     <div class="comment-meta d-flex align-items-baseline">
                                         <h6 class="me-2">{{ comment.comment_author }}</h6>
                                         <span class="text-muted">{{ comment.creation_date.date }}</span>
-                                        {% if comment.comment_author == request.user.username %}
+                                        {% if comment.comment_author == request.user %}
                                             <!-- Mostrar botones de editar y borrar solo si el autor del comentario es el usuario actual -->
                                             <button type="button" class="btn btn-sm btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#editCommentModal{{ comment.id }}">Editar</button>
                                             <button type="button" class="btn btn-sm btn-danger ms-2" data-bs-toggle="modal" data-bs-target="#deleteCommentModal{{ comment.id }}">Borrar</button>
@@ -106,13 +110,20 @@
                         <h5 class="comment-title">Deja un comentario</h5>
                         <form method="post">{% csrf_token %}
                         <div class="row">
+                            {% if user.is_authenticated %}
                             <div class="col-12 mb-3">
                                 <label for="comment-message">Tu comentario</label>
                                 {{ form.content }}
                             </div>
                             <div class="col-12">
-                                <input type="submit" class="btn btn-primary" value="Enivar">
+                                <input type="submit" class="btn btn-primary" value="Enviar">
                             </div>
+                            {% else %}
+                            <div class="col-12 mb-3">
+                                <label for="comment-message">Debes iniciar sesión para poder comentar.<br>
+                                    -><a href="{% url 'login' %}" class="btn">Iniciar sesión.</a></label>
+                            </div>
+                            {% endif %}
                         </form>
                         <br>
                         <br>

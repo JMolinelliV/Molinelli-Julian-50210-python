@@ -67,7 +67,11 @@
           <p class="mb-4 d-block">{{ post.content | slice:":400" }}...</p>
           <div class="d-flex align-items-center justify-content-between mr-4">
             <div class="d-flex align-items-center author">
-              <div class="photo"><img src="{{post.post_author.avatar_set.last.image.url}}" alt="avatar" class="img-fluid"></div> <!---TODO: cambiar para mostrar la foto del usuario-->
+              {% if post.post_author.avatar_set.exists %}
+              <div class="photo"><img src="{{post.post_author.avatar_set.last.image.url}}" alt="avatar" class="img-fluid"></div>
+              {% else %}
+              <div class="photo"><img src="{% static 'img/generic_avatar.avif' %}" alt="avatar generic" class="img-fluid"></div>
+              {% endif %}
               <div class="name">
                 <h3 class="m-0 p-0">{{ post.post_author }}</h3>
               </div>

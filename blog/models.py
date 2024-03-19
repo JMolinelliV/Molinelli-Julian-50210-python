@@ -31,7 +31,7 @@ class Category(models.Model):
         verbose_name_plural = "categories"
 
 class Comment(models.Model):
-    comment_author = models.CharField(max_length=30)
+    comment_author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
     content = models.TextField()
     creation_date = models.DateTimeField(auto_now_add=True)
     email = models.EmailField(default="email@prueba.com")

@@ -75,7 +75,7 @@ class BlogPostDetailView(DetailView):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = post
-            comment.comment_author = request.user.username
+            comment.comment_author = request.user
             comment.save()
             return redirect(request.path_info)
         return render(request, self.template_name, self.get_context_data())
@@ -112,16 +112,15 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         form.instance.post_id = self.kwargs['pk']
         return super().form_valid(form)
 
-class CommentUpdateView(UpdateView):
+class CommentUpdateView(LoginRequiredMixin, UpdateView):
     model = Comment
     fields = ['content']
 
     def form_valid(self, form):
-        # Guarda el comentario actualizado
         form.save()
         return redirect('blog_detail', pk=self.object.post.pk)
 
-class CommentDeleteView(DeleteView):
+class CommentDeleteView(LoginRequiredMixin, DeleteView):
     model = Comment
 
     def get_success_url(self):
@@ -176,12 +175,23 @@ def signup(request):
 
 #EditUser
 @login_required
+def user_profile(request, username):
+    user = User.objects.get(username=username)
+    avatar = Avatar.objects.filter(user=user).first()
+    context = {
+        'user': user,
+        'avatar': avatar,
+    }
+    return render(request, 'register/user_profile.html', context)
+
+@login_required
 def edit_user(request, username):
-    user = request.user
     
+    user = request.user
+
     if request.method == "POST":
         form = EditUser(request.POST)
-
+        user = user
         if form.is_valid():
             info_dic = form.cleaned_data
 
@@ -193,7 +203,7 @@ def edit_user(request, username):
             return HttpResponseRedirect(reverse("index"))
     
     else:
-        form = EditUser(initial={"first_name":user.first_name, "last_name":user.last_name, "email":user.email})
+        form = EditUser(instance=user)
 
     return render(request, 'register/edit_user.html', {"form":form})
 

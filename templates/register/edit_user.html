@@ -2,16 +2,38 @@
 
 {% block page_content %}
 
-<div class="d-flex container-md min-vh-100 flex-column align-items-center justify-content-center">
-    <h2>Editar perfil</h2>
-    <form method="POST" enctype="multipart/form-data">{% csrf_token %}
-        <div class="form_group">
-            {{ form }}
+<div class="container">
+    <div class="row justify-content-center min-vh-100">
+        <div class="col-md-6 align-items-center">
+            <div class="card mt-5">
+                <div class="card-header">
+                    <h2 class="card-title">Editar perfil</h2>
+                </div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_first_name">Nombre:</label>
+                            <input type="text" name="first_name" id="id_first_name" class="form-control" value="{{ form.first_name.value }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="id_last_name">Apellido:</label>
+                            <input type="text" name="last_name" id="id_last_name" class="form-control" value="{{ form.last_name.value }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="id_email">Correo electrónico:</label>
+                            <input type="email" name="email" id="id_email" class="form-control" value="{{ form.email.value }}">
+                        </div>
+                        <div class="d-flex justify-content-center mt-3">
+                            <button type="submit" class="btn btn-primary">Editar</button>
+                            <a href="{% url 'index' %}" class="btn">Cancelar</a>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="d-flex justify-content-center align-items-center">
-            <input type="submit" value="Editar" class="d-flex flex-row">
-        </div>
-    </form>
-    <br><br>
+    </div>
 </div>
+
 {% endblock page_content %}

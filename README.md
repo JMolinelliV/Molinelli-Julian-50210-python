@@ -1,7 +1,7 @@
 # Pezorium
 
 Sitio web generado con Django como proyecto para el curso de Python ofrecido por CoderHouse. 
-El sitio web es un blog con tienda integrada que permite a los usuarios compartir información sobre distintas temáticas relacionadas a la acuariofilia. Se utiliza como modelo el template de [ZenBlog](https://bootstrapmade.com/zenblog-bootstrap-blog-template/#download).
+El sitio web es un blog que permite a los usuarios compartir información sobre distintas temáticas relacionadas a la acuariofilia. Se utiliza como modelo el template de [ZenBlog](https://bootstrapmade.com/zenblog-bootstrap-blog-template/#download).
 
 ## Orden
 

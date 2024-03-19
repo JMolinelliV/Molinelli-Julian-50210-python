@@ -28,3 +28,6 @@ El funcionamiento de la página es intiuitivo por lo que:
 Todo el sitio tiene configurada la autenticación de usuarios, no permitiendo modificar o crear instancias de los modelos si no se está logeado. A su vez, la autenticación personaliza las páginas que ven los usuarios mostrando por ejemplo su foto de perfil o su nombre si están logeados.
 
 En caso de que el usario esté deslogeado se mostrará en el navbar un menú desplegable que permite "Iniciar Sesión" o "Registrarse", y si el usuario está logeado muestra el nombre del usuario y permite "Cerrar sesión" o "Ver perfil". Es en esta última opción que el usuario podrá cargar un avatar o modificar el existente, editar sus datos y cambiar su contraseña. Lo mismo ocurre con las fotos de las post_author y comment_author en las vistas en las que estos están presentes; al crear cualquiera de las dos el sistema toma la foto del usuario que crea la instancia y luego la muestra aunque no esté logeado para que otros usaurios del sitio puedan ver la foto de perfil de los creadores. 
+
+## Video de presentación del proyecto
+[Ir al video en YouTube](https://youtu.be/T_wrg1lOTzM)

@@ -14,7 +14,6 @@ El sitio web es un blog que permite a los usuarios compartir información sobre 
 - pillow              10.2.0
 
 ## URLs funcionales
-Todas las funcionalidades fueron implementadas dentro de la App "Blog" por lo que dentro del nav.
 El funcionamiento de la página es intiuitivo por lo que:
 - Hacer click en el título de un post lleva a "http://127.0.0.1:8000/BlogPost/<int:pk>/" donde pk es la primary key del BlogPost object.
 - En el navbar, hacer click en "Blog" lleva al index que muestra todos los posteos realizados ordenados por fecha de más nuevo a más viejos.
